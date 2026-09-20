@@ -10,16 +10,24 @@
 
     <div class="container">
         <h1>BMI Calculator</h1>
+        <p class="subtitle">Calculate your Body Mass Index</p>
 
-        <label>Enter Weight (kg)</label>
-        <input type="number" id="weight" placeholder="Enter weight">
+        <div class="input-group">
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" placeholder="Enter your weight" min="1">
+        </div>
 
-        <label>Enter Height (cm)</label>
-        <input type="number" id="height" placeholder="Enter height">
+        <div class="input-group">
+            <label for="height">Height (cm)</label>
+            <input type="number" id="height" placeholder="Enter your height" min="1">
+        </div>
 
         <button onclick="calculateBMI()">Calculate BMI</button>
 
-        <div id="result"></div>
+        <div id="result" class="result">
+            <h2 id="bmiValue"></h2>
+            <p id="bmiCategory"></p>
+        </div>
     </div>
 
     <script src="script.js"></script>
