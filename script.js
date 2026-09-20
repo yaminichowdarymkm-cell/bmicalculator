@@ -1,36 +1,52 @@
 function calculateBMI() {
-    let weight = document.getElementById("weight").value;
-    let height = document.getElementById("height").value;
 
-    if (weight === "" || height === "") {
-        document.getElementById("result").innerHTML =
-            "Please enter weight and height.";
+    // Get input values
+    let weight = parseFloat(document.getElementById("weight").value);
+    let height = parseFloat(document.getElementById("height").value);
+
+    let result = document.getElementById("result");
+    let bmiValue = document.getElementById("bmiValue");
+    let bmiCategory = document.getElementById("bmiCategory");
+
+    // Validate input
+    if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+        result.style.display = "block";
+        bmiValue.textContent = "Invalid Input";
+        bmiCategory.textContent = "Please enter valid weight and height.";
+        bmiCategory.className = "error";
         return;
     }
 
-    // Convert height from cm to meters
-    height = height / 100;
+    // Convert height from centimeters to meters
+    let heightInMeters = height / 100;
 
-    // BMI formula
-    let bmi = weight / (height * height);
+    // BMI Formula
+    let bmi = weight / (heightInMeters * heightInMeters);
 
-    bmi = bmi.toFixed(2);
+    // Display BMI
+    bmiValue.textContent = "BMI: " + bmi.toFixed(2);
 
-    let category;
+    // Remove previous category classes
+    bmiCategory.className = "";
 
+    // Determine BMI category
     if (bmi < 18.5) {
-        category = "Underweight";
-    } 
-    else if (bmi < 25) {
-        category = "Normal weight";
-    } 
-    else if (bmi < 30) {
-        category = "Overweight";
-    } 
-    else {
-        category = "Obese";
+        bmiCategory.textContent = "Underweight";
+        bmiCategory.classList.add("underweight");
+
+    } else if (bmi >= 18.5 && bmi < 25) {
+        bmiCategory.textContent = "Normal Weight";
+        bmiCategory.classList.add("normal");
+
+    } else if (bmi >= 25 && bmi < 30) {
+        bmiCategory.textContent = "Overweight";
+        bmiCategory.classList.add("overweight");
+
+    } else {
+        bmiCategory.textContent = "Obese";
+        bmiCategory.classList.add("obese");
     }
 
-    document.getElementById("result").innerHTML =
-        "Your BMI is: " + bmi + "<br>Category: " + category;
+    // Show result
+    result.style.display = "block";
 }
